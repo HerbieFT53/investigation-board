@@ -103,22 +103,40 @@ body.board-page { background:#171411; color:var(--ink); overflow:hidden; display
 .dialog-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:7px; }
 .dialog-actions .tool-button { color:#443322; background:#d1c1a4; border-color:#aa9574; }
 @media (max-width:900px) {
-  .toolbar { align-items:flex-start; flex-direction:column; gap:7px; padding:8px 10px; }
-  .title-block { min-width:0; }
+  .toolbar { align-items:stretch; flex-direction:column; gap:7px; padding:8px 10px; }
+  .title-block { min-width:0; padding-right:42px; }
   .title-block h1 { font-size:18px; }
   .eyebrow { font-size:8px; }
-  .tools { width:100%; justify-content:flex-start; flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px; scrollbar-width:thin; }
-  .tool-button { padding:8px 9px; }
-  .board-switcher { flex:0 0 auto; }
-  .board-tools { min-height:42px; }
+  /* Keep the exit control independent from the horizontally scrollable tools. */
+  .close-button { position:absolute; top:9px; right:10px; z-index:10; }
+  .tools { width:100%; min-width:0; justify-content:flex-start; flex-wrap:wrap; overflow:visible; padding:0 0 2px; }
+  .tool-button { padding:9px 10px; min-height:38px; }
+  .board-switcher { flex:1 1 100%; min-width:0; flex-wrap:wrap; }
+  .board-switcher select { flex:1 1 90px; min-width:0; }
+  .board-switcher input { flex:2 1 110px; min-width:0; max-width:none; }
+  .board-tools { min-height:42px; max-width:100%; }
   .document-actions,.note-actions { opacity:1; }
 }
 @media (max-width:520px) {
+  .toolbar { padding:8px 9px; gap:8px; }
   .title-block h1 { font-size:16px; }
-  .tool-button { font-size:10px; }
-  .role-pill { font-size:9px; padding:6px 7px; }
+  .tools { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+  .tools > * { min-width:0; max-width:100%; }
+  .tools .board-switcher { grid-column:1 / -1; display:flex; }
+  .tools .tool-button { width:100%; min-width:0; white-space:normal; font-size:11px; padding:8px 5px; line-height:1.15; }
+  .tools .icon-button { width:100%; }
+  .tools .close-button { position:absolute; top:8px; right:9px; width:36px; height:36px; padding:0; }
+  .tools .role-pill { justify-self:start; align-self:center; font-size:9px; padding:6px 7px; }
+  .board-tools { overflow-x:auto; }
+  #search-cards { width:48vw; min-width:115px; }
   .zoom-controls { right:8px; bottom:8px; }
-  .zoom-controls button { width:32px; height:32px; }
+  .zoom-controls button { width:38px; height:38px; }
   .notice { top:166px; font-size:11px; }
   .note-dialog { padding:15px; }
+}
+@media (max-width:360px) {
+  .tools { grid-template-columns:1fr 1fr; }
+  .tools .board-switcher { gap:3px; }
+  .board-switcher .tool-button { flex:1 1 100%; }
+  .title-block h1 { font-size:15px; }
 }

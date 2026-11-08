@@ -105,3 +105,10 @@ Publique o conteúdo da pasta `dist/` em um host estático HTTPS.
 ## Testes ainda necessários
 
 A sintaxe JavaScript foi verificada estaticamente. A integração final precisa ser testada dentro do Owlbear em navegador desktop e em dispositivos móveis reais, especialmente: seletor de imagens Notes, permissões de mestre/jogador, sincronização com dois clientes, gesto de pinça, rolagem do trackpad e limites de metadados.
+
+
+## Versão 0.4.3
+
+- Barra de ferramentas responsiva para Android e telas estreitas.
+- Botão de saída fixo e sempre visível, fora da faixa de rolagem dos controles.
+- Controles reorganizados em duas colunas com alvos de toque maiores.
