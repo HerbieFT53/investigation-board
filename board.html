@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#241c17" />
+  <title>Quadro de investigação</title>
+</head>
+<body class="board-page">
+  <header class="toolbar">
+    <div class="title-block">
+      <span class="eyebrow">ARQUIVO DA INVESTIGAÇÃO</span>
+      <h1>Quadro de investigação</h1>
+    </div>
+    <div class="tools">
+      <div class="board-switcher" aria-label="Gerenciar quadros">
+        <select id="board-select" aria-label="Selecionar quadro"></select>
+        <input id="board-title" type="text" maxlength="40" aria-label="Título do quadro" title="Edite o título e pressione Enter" />
+        <button id="add-board" class="tool-button" title="Criar quadro">＋ Quadro</button>
+        <button id="delete-board" class="tool-button danger" title="Excluir quadro" hidden>Excluir quadro</button>
+      </div>
+      <button id="add-doc" class="tool-button">＋ Documento</button>
+      <button id="add-note" class="tool-button">＋ Anotação</button>
+      <button id="connect-mode" class="tool-button connect">↗ Conectar</button>
+      <button id="delete-mode" class="tool-button danger" hidden>Excluir linhas</button>
+      <button id="undo-action" class="tool-button icon-button" title="Desfazer" aria-label="Desfazer" disabled>↶</button>
+      <button id="redo-action" class="tool-button icon-button" title="Refazer" aria-label="Refazer" disabled>↷</button>
+      <button id="export-action" class="tool-button">Exportar</button>
+      <button id="import-action" class="tool-button">Importar</button>
+      <span id="role-pill" class="role-pill">Conectando…</span>
+      <button id="close-board" class="tool-button close-button" type="button" title="Voltar ao tabuleiro" aria-label="Voltar ao tabuleiro">✕</button>
+    </div>
+  </header>
+  <div class="board-tools">
+    <input id="search-cards" type="search" placeholder="Pesquisar documentos e anotações…" aria-label="Pesquisar documentos e anotações" />
+    <label class="link-setting">Linha <select id="link-color" aria-label="Cor da conexão"><option value="#8e1718">Vermelha</option><option value="#263d70">Azul</option><option value="#315c3a">Verde</option><option value="#2b2926">Preta</option><option value="#e8dfce">Branca</option></select></label>
+    <label class="link-setting"><select id="link-style" aria-label="Estilo da conexão"><option value="solid">Contínua</option><option value="dashed">Tracejada</option><option value="dotted">Pontilhada</option></select></label>
+  </div>
+  <div id="notice" class="notice" role="status" aria-live="polite"></div>
+  <main id="viewport" class="viewport" aria-label="Área navegável do quadro">
+    <div id="board-world" class="board-world">
+      <section id="corkboard" class="corkboard" aria-label="Área livre do quadro de investigação">
+        <svg id="connections" class="connections" aria-hidden="true"></svg>
+        <div id="cards" class="cards"></div>
+      </section>
+    </div>
+    <div class="zoom-controls" aria-label="Controles de zoom">
+      <button id="zoom-in" title="Aumentar zoom" aria-label="Aumentar zoom">＋</button>
+      <span id="zoom-label">100%</span>
+      <button id="zoom-out" title="Diminuir zoom" aria-label="Diminuir zoom">−</button>
+      <button id="zoom-reset" title="Redefinir visualização" aria-label="Redefinir visualização">⟲</button>
+    </div>
+  </main>
+  <input id="import-file" type="file" accept="application/json,.json" hidden />
+  <div id="note-dialog" class="dialog-backdrop" hidden>
+    <form id="note-form" class="note-dialog">
+      <h2 id="note-dialog-title">Nova anotação</h2>
+      <label for="note-body">Anotação</label>
+      <textarea id="note-body" maxlength="1200" rows="5" placeholder="Escreva uma observação…"></textarea>
+      <label for="note-color">Cor do papel</label>
+      <select id="note-color">
+        <option value="parchment">Papel envelhecido</option><option value="lined">Caderno pautado</option><option value="pink">Post-it rosa</option><option value="yellow">Post-it amarelo</option><option value="orange">Post-it laranja</option><option value="blue">Post-it azul</option>
+      </select>
+      <div class="dialog-actions">
+        <button type="button" id="cancel-note" class="tool-button">Cancelar</button>
+        <button type="submit" class="primary">Salvar anotação</button>
+      </div>
+    </form>
+  </div>
+  <script type="module" src="/src/board.js"></script>
+</body>
+</html>
