@@ -1,14 +1,14 @@
 {
   "name": "Investigation Board",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "manifest_version": 1,
   "description": "Quadro compartilhado de investigação com navegação por zoom, documentos, anotações simples e conexões.",
   "author": "Projeto personalizado",
-  "icon": "/icon.svg",
+  "icon": "https://herbieft53.github.io/investigation-board/icon.svg",
   "action": {
     "title": "Investigações",
-    "icon": "/icon.svg",
-    "popover": "/index.html",
+    "icon": "https://herbieft53.github.io/investigation-board/icon.svg",
+    "popover": "https://herbieft53.github.io/investigation-board/index.html",
     "width": 300,
     "height": 170
   }

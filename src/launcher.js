@@ -13,7 +13,7 @@ OBR.onReady(() => {
     try {
       await OBR.modal.open({
         id: MODAL_ID,
-        url: "/board.html",
+        url: new URL("./board.html", window.location.href).href,
         fullScreen: true
       });
     } catch (error) {
