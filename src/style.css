@@ -28,6 +28,9 @@ body.board-page { background:#171411; color:var(--ink); overflow:hidden; display
 .title-block h1 { font-family:"Special Elite",Georgia,serif; font-size:22px; font-weight:400; margin-top:3px; white-space:nowrap; }
 .eyebrow { font-size:9px; letter-spacing:2px; color:#c9a77c; font-weight:700; }
 .tools { display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end; min-width:0; }
+.primary-actions { display:flex; align-items:center; gap:6px; }
+.secondary-actions { display:flex; align-items:center; justify-content:flex-end; gap:6px; flex-wrap:wrap; }
+.toolbar-toggle,.sr-only { display:none; }
 .tool-button { padding:8px 10px; color:#eadbc5; background:#594333; border:1px solid #866849; border-radius:6px; font-size:11px; font-weight:600; white-space:nowrap; }
 .tool-button:hover,.tool-button.active { background:#805b3e; border-color:#d0a477; }
 .tool-button.connect { border-color:#a54841; }
@@ -104,76 +107,47 @@ body.board-page { background:#171411; color:var(--ink); overflow:hidden; display
 .dialog-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:7px; }
 .dialog-actions .tool-button { color:#443322; background:#d1c1a4; border-color:#aa9574; }
 @media (max-width:900px) {
-  .toolbar {
-    align-items:stretch;
-    flex-direction:column;
-    gap:8px;
-    padding:9px 10px calc(9px + env(safe-area-inset-top));
-    width:100%;
-    max-width:100%;
-  }
+  .toolbar { align-items:stretch; flex-direction:column; gap:7px; padding:9px 10px calc(7px + env(safe-area-inset-top)); width:100%; max-width:100%; }
   .title-block { min-width:0; padding-right:48px; }
   .title-block h1 { font-size:18px; }
   .eyebrow { font-size:8px; }
-  /* O botão de saída é irmão da área rolável, nunca parte da grade de ferramentas. */
-  .toolbar > .close-button {
-    position:absolute;
-    top:9px;
-    right:max(10px, env(safe-area-inset-right));
-    z-index:20;
-    width:38px;
-    height:38px;
-    min-width:38px;
-    display:grid;
-    place-items:center;
-    touch-action:manipulation;
-  }
-  .tools {
-    display:flex;
-    width:100%;
-    min-width:0;
-    max-width:100%;
-    justify-content:flex-start;
-    flex-wrap:wrap;
-    overflow:visible;
-    padding:0 0 2px;
-  }
-  .tools > * { min-width:0; max-width:100%; }
-  .tool-button { min-height:40px; padding:9px 10px; touch-action:manipulation; }
+  .toolbar > .close-button { position:absolute; top:9px; right:max(10px,env(safe-area-inset-right)); z-index:20; width:38px; height:38px; min-width:38px; display:grid; place-items:center; touch-action:manipulation; }
+  .tools { display:flex; flex-direction:column; align-items:stretch; width:100%; min-width:0; max-width:100%; gap:4px; }
+  .primary-actions { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:7px; width:100%; }
+  .primary-tool { min-width:0; min-height:42px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:5px 2px; white-space:normal; font-size:10px; touch-action:manipulation; }
+  .primary-tool .tool-icon { font-size:21px; line-height:1.05; }
+  .primary-tool .button-label { display:none; }
+  .toolbar-toggle { display:flex; align-items:center; justify-content:center; align-self:center; width:54px; height:19px; padding:0; border:1px solid #76583d; border-top:0; border-radius:0 0 9px 9px; color:#eadbc5; background:#201914; font-size:18px; line-height:14px; touch-action:manipulation; }
+  .toolbar-toggle span[aria-hidden="true"] { transition:transform .18s ease; }
+  .toolbar-toggle[aria-expanded="true"] span[aria-hidden="true"] { transform:rotate(180deg); }
+  .secondary-actions { display:none; width:100%; min-width:0; flex-wrap:wrap; justify-content:flex-start; gap:6px; padding-top:4px; }
+  body.toolbar-expanded .secondary-actions { display:flex; }
+  .secondary-actions > * { min-width:0; max-width:100%; }
+  .secondary-actions .tool-button { min-height:38px; padding:8px 9px; font-size:10px; touch-action:manipulation; }
   .board-switcher { flex:1 1 100%; min-width:0; flex-wrap:wrap; }
   .board-switcher select { flex:1 1 90px; min-width:0; }
   .board-switcher input { flex:2 1 110px; min-width:0; max-width:none; }
   .board-tools { min-height:44px; min-width:0; max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; }
   .document-actions,.note-actions { opacity:1; }
+  .notice { top:auto; bottom:calc(14px + env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%) translateY(8px); width:max-content; max-width:calc(100vw - 24px); font-size:11px; }
+  .notice.visible { transform:translateX(-50%) translateY(0); }
 }
 @media (max-width:520px) {
-  .toolbar { padding:8px 9px calc(8px + env(safe-area-inset-top)); gap:8px; }
+  .toolbar { padding:8px 9px calc(6px + env(safe-area-inset-top)); gap:6px; }
   .title-block h1 { font-size:16px; }
-  .tools {
-    display:grid;
-    width:100%;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:6px;
-    padding-right:0;
-  }
-  .tools > * { min-width:0; max-width:100%; }
-  .tools .board-switcher { grid-column:1 / -1; display:flex; width:100%; }
-  .tools .tool-button { width:100%; min-width:0; white-space:normal; font-size:11px; padding:8px 5px; line-height:1.15; }
-  .tools .icon-button { width:100%; }
-  .toolbar > .close-button { top:8px; right:max(9px, env(safe-area-inset-right)); width:38px; height:38px; }
-  .tools .role-pill { justify-self:start; align-self:center; font-size:9px; padding:6px 7px; }
+  .primary-actions { gap:5px; }
+  .primary-tool { min-height:40px; }
+  .toolbar > .close-button { top:8px; right:max(9px,env(safe-area-inset-right)); width:38px; height:38px; }
   .board-tools { overflow-x:auto; }
   #search-cards { width:48vw; min-width:115px; }
-  .zoom-controls { right:max(8px, env(safe-area-inset-right)); bottom:max(8px, env(safe-area-inset-bottom)); }
+  .zoom-controls { right:max(8px,env(safe-area-inset-right)); bottom:max(8px,env(safe-area-inset-bottom)); }
   .zoom-controls button { width:40px; height:40px; }
-  .notice { top:calc(166px + env(safe-area-inset-top)); font-size:11px; }
   .note-dialog { padding:15px; }
   .viewport { min-width:0; min-height:0; }
 }
 @media (max-width:360px) {
-  .tools { grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
-  .tools .board-switcher { gap:3px; }
-  .board-switcher .tool-button { flex:1 1 100%; }
+  .primary-actions { gap:4px; }
+  .primary-tool { font-size:9px; }
+  .primary-tool .tool-icon { font-size:19px; }
   .title-block h1 { font-size:15px; }
-  .tool-button { font-size:10px; }
 }

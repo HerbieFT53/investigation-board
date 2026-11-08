@@ -13,21 +13,26 @@
       <h1>Quadro de investigação</h1>
     </div>
     <div class="tools">
+      <div class="primary-actions" aria-label="Ações principais">
+        <button id="add-note" class="tool-button primary-tool" title="Nova anotação" aria-label="Nova anotação"><span class="tool-icon" aria-hidden="true">✎</span><span class="button-label">Anotação</span></button>
+        <button id="add-doc" class="tool-button primary-tool" title="Adicionar documento" aria-label="Adicionar documento"><span class="tool-icon" aria-hidden="true">▤</span><span class="button-label">Documento</span></button>
+        <button id="connect-mode" class="tool-button connect primary-tool" title="Conectar linhas" aria-label="Conectar linhas"><span class="tool-icon" aria-hidden="true">↗</span><span class="button-label">Linhas</span></button>
+        <button id="delete-mode" class="tool-button danger primary-tool" title="Desconectar linhas" aria-label="Desconectar linhas" hidden><span class="tool-icon" aria-hidden="true">⌁</span><span class="button-label">Desconectar</span></button>
+      </div>
+      <button id="toolbar-toggle" class="toolbar-toggle" type="button" aria-expanded="false" aria-controls="secondary-actions" title="Mostrar mais opções"><span aria-hidden="true">⌄</span><span class="sr-only">Mostrar mais opções</span></button>
+      <div id="secondary-actions" class="secondary-actions">
       <div class="board-switcher" aria-label="Gerenciar quadros">
         <select id="board-select" aria-label="Selecionar quadro"></select>
         <input id="board-title" type="text" maxlength="40" aria-label="Título do quadro" title="Edite o título e pressione Enter" />
         <button id="add-board" class="tool-button" title="Criar quadro">＋ Quadro</button>
         <button id="delete-board" class="tool-button danger" title="Excluir quadro" hidden>Excluir quadro</button>
       </div>
-      <button id="add-doc" class="tool-button">＋ Documento</button>
-      <button id="add-note" class="tool-button">＋ Anotação</button>
-      <button id="connect-mode" class="tool-button connect">↗ Conectar</button>
-      <button id="delete-mode" class="tool-button danger" hidden>Excluir linhas</button>
       <button id="undo-action" class="tool-button icon-button" title="Desfazer" aria-label="Desfazer" disabled>↶</button>
       <button id="redo-action" class="tool-button icon-button" title="Refazer" aria-label="Refazer" disabled>↷</button>
       <button id="export-action" class="tool-button">Exportar</button>
       <button id="import-action" class="tool-button">Importar</button>
       <span id="role-pill" class="role-pill">Conectando…</span>
+      </div>
     </div>
     <button id="close-board" class="tool-button close-button" type="button" title="Voltar ao tabuleiro" aria-label="Voltar ao tabuleiro">✕</button>
   </header>
@@ -67,6 +72,6 @@
       </div>
     </form>
   </div>
-  <script type="module" src="/src/board.js"></script>
+  <script type="module" src="./src/board.js"></script>
 </body>
 </html>

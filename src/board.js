@@ -31,6 +31,7 @@ const boardSelect = $("#board-select");
 const boardTitleInput = $("#board-title");
 const addBoardButton = $("#add-board");
 const deleteBoardButton = $("#delete-board");
+const toolbarToggle = $("#toolbar-toggle");
 
 let workspace = structuredClone(EMPTY_WORKSPACE);
 let board = structuredClone(EMPTY_BOARD);
@@ -562,6 +563,13 @@ async function init() {
   OBR.broadcast.onMessage(CHANNEL, async (event) => {
     if (event.data?.type === "board-updated") applyRemoteBoard(await OBR.room.getMetadata());
   });
+  toolbarToggle.addEventListener("click", () => {
+    const expanded = toolbarToggle.getAttribute("aria-expanded") !== "true";
+    toolbarToggle.setAttribute("aria-expanded", String(expanded));
+    toolbarToggle.title = expanded ? "Ocultar opções" : "Mostrar mais opções";
+    toolbarToggle.querySelector(".sr-only").textContent = expanded ? "Ocultar opções" : "Mostrar mais opções";
+    document.body.classList.toggle("toolbar-expanded", expanded);
+  });
   addDocButton.addEventListener("click", addDocuments);
   boardSelect.addEventListener("change", () => activateBoard(boardSelect.value));
   boardTitleInput.addEventListener("change", renameBoard);
@@ -571,16 +579,16 @@ async function init() {
   addNoteButton.addEventListener("click", () => openNoteDialog());
   connectButton.addEventListener("click", () => {
     connectMode = !connectMode;
-    if (connectMode) { deleteLinkMode = false; deleteButton.classList.remove("active"); deleteButton.setAttribute("aria-pressed", "false"); deleteButton.textContent = "Excluir linhas"; corkboard.classList.remove("deleting"); }
+    if (connectMode) { deleteLinkMode = false; deleteButton.classList.remove("active"); deleteButton.setAttribute("aria-pressed", "false"); deleteButton.querySelector(".button-label").textContent = "Desconectar"; corkboard.classList.remove("deleting"); }
     firstEndpoint = null; connectButton.classList.toggle("active", connectMode); connectButton.setAttribute("aria-pressed", String(connectMode));
-    connectButton.textContent = connectMode ? "Sair de conectar" : "↗ Conectar"; corkboard.classList.toggle("connecting", connectMode); render();
+    connectButton.querySelector(".button-label").textContent = connectMode ? "Sair" : "Linhas"; corkboard.classList.toggle("connecting", connectMode); render();
     showNotice(connectMode ? "Modo conexão ativo: selecione dois cartões." : "Modo conexão desativado.");
   });
   deleteButton.addEventListener("click", () => {
     deleteLinkMode = !deleteLinkMode;
-    if (deleteLinkMode) { connectMode = false; firstEndpoint = null; connectButton.classList.remove("active"); connectButton.setAttribute("aria-pressed", "false"); connectButton.textContent = "↗ Conectar"; corkboard.classList.remove("connecting"); }
+    if (deleteLinkMode) { connectMode = false; firstEndpoint = null; connectButton.classList.remove("active"); connectButton.setAttribute("aria-pressed", "false"); connectButton.querySelector(".button-label").textContent = "Linhas"; corkboard.classList.remove("connecting"); }
     deleteButton.classList.toggle("active", deleteLinkMode); deleteButton.setAttribute("aria-pressed", String(deleteLinkMode));
-    deleteButton.textContent = deleteLinkMode ? "Sair de excluir linhas" : "Excluir linhas"; corkboard.classList.toggle("deleting", deleteLinkMode); render();
+    deleteButton.querySelector(".button-label").textContent = deleteLinkMode ? "Sair" : "Desconectar"; corkboard.classList.toggle("deleting", deleteLinkMode); render();
     showNotice(deleteLinkMode ? "Clique em uma linha para removê-la." : "Modo de exclusão desativado.");
   });
   closeButton.addEventListener("click", async () => { closeButton.disabled = true; try { await OBR.modal.close(MODAL_ID); } catch (error) { console.error(error); showNotice("Não foi possível fechar o quadro.", "error"); closeButton.disabled = false; } });
