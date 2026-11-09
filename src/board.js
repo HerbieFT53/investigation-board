@@ -321,7 +321,7 @@ function normalizeBoard(stored) {
       const { category, ...item } = x;
       const aspectRatio = Number(x.aspectRatio) > 0 ? Number(x.aspectRatio) : (Number(x.width) > 0 && Number(x.height) > 0 ? Number(x.width) / Number(x.height) : 0.75);
       const oldWidth = Number(x.width) || 220;
-      const width = Math.min(2376, 1476 * aspectRatio, Math.max(280, migrateSize ? oldWidth * 1.5 : oldWidth));
+      const width = Math.min(2376, 1476 * aspectRatio, Math.max(64, migrateSize ? oldWidth * 1.5 : oldWidth));
       const height = Math.round(width / aspectRatio);
       return { ...item, x: Math.max(12, Math.min(2400 - width - 12, Number(x.x) || 12)), y: Math.max(12, Math.min(1500 - height - 12, Number(x.y) || 12)), width, height, aspectRatio, _updatedAt: x._updatedAt || stored.updatedAt || 0 };
     }) : [],
@@ -365,7 +365,7 @@ async function addDocuments() {
     for (const item of valid) {
       const w = Number(item.image.width) || 600, h = Number(item.image.height) || 800;
       const aspectRatio = w / h;
-      const width = Math.min(420, 1476 * aspectRatio, Math.max(320, w * (360 / Math.max(w, h))));
+      const width = Math.min(300, 1476 * aspectRatio, Math.max(96, w * (240 / Math.max(w, h))));
       const doc = { id: uid(), name: item.name || "Documento sem título", url: item.image.url, width, height: Math.round(width / aspectRatio), aspectRatio,
         x: Math.min(2400 - width - 12, 80 + (board.documents.length % 4) * 560), y: Math.min(1500 - Math.round(width / aspectRatio) - 12, 80 + Math.floor(board.documents.length / 4) * 500), locked: false };
       markItem(doc); board.documents.push(doc);
@@ -410,7 +410,7 @@ function onCardClick(event) {
     const doc = board.documents.find((item) => item.id === scaleButton.dataset.document); if (!doc) return;
     checkpoint(); const ratio = doc.aspectRatio || ((doc.width || 220) / (doc.height || 293));
     const maxWidth = Math.min(1100, 2376, 1476 * ratio);
-    doc.width = Math.min(maxWidth, Math.max(Math.min(280, maxWidth), (doc.width || 340) + (scaleButton.dataset.scale === "up" ? 40 : -40)));
+    doc.width = Math.min(maxWidth, Math.max(Math.min(64, maxWidth), (doc.width || 220) + (scaleButton.dataset.scale === "up" ? 20 : -20)));
     doc.height = Math.round(doc.width / ratio); markItem(doc); render(); queueSave(); return;
   }
   const noteScaleButton = target.closest("[data-note-scale]");
